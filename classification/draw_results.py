@@ -5,7 +5,7 @@ from dev.mouse_callback import mouse
 video_path = '../assets/test_videos/test_3.mp4'
 video = cv2.VideoCapture(video_path)
 fps = video.get(cv2.CAP_PROP_FPS)
-cv2.namedWindow('Test', cv2.WINDOW_NORMAL)
+cv2.namedWindow('Results', cv2.WINDOW_NORMAL)
 
 frame = 0
 while video.isOpened():
@@ -49,7 +49,7 @@ while video.isOpened():
 
     frame += 1
 
-    cv2.imshow('Test', image)
+    cv2.imshow('Results', image)
     if cv2.waitKey(1) == ord('q'):
         print("Stopped.")
         break
