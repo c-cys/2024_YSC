@@ -1,6 +1,5 @@
 import cv2
 import pandas as pd
-from dev.save_video import save_video
 
 video_path = 'assets/test_videos/test_3.mp4'
 video = cv2.VideoCapture(video_path)

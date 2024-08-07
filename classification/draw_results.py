@@ -1,7 +1,7 @@
 import cv2
 import pandas as pd
 from classification import Classification
-from dev.mouse_callback import mouse
+
 video_path = '../assets/test_videos/test_3.mp4'
 video = cv2.VideoCapture(video_path)
 fps = video.get(cv2.CAP_PROP_FPS)
