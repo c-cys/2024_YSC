@@ -7,6 +7,8 @@ video = cv2.VideoCapture(video_path)
 fps = video.get(cv2.CAP_PROP_FPS)
 cv2.namedWindow('Results', cv2.WINDOW_NORMAL)
 
+save_df = pd.DataFrame(columns=['linear', 'exp', 'log', 'None'])
+
 frame = 0
 while video.isOpened():
     check, image = video.read()
@@ -38,12 +40,18 @@ while video.isOpened():
         trajectory = Classification(raw_points)
         if trajectory.is_linear():
             text = 'Linear'
+            result = 'linear'
         elif trajectory.is_exponential():
             text = 'Exponential'
+            result = 'exp'
         elif trajectory.is_logarithmic():
             text = 'Logarithm'
+            result = 'log'
         else:
             text = 'None'
+            result = 'None'
+
+        save_df.loc[len(save_df), result] = int(frame)
         print(text)
         cv2.putText(image, text, (30, 30), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 1, cv2.LINE_AA)
 
@@ -53,6 +61,9 @@ while video.isOpened():
     if cv2.waitKey(1) == ord('q'):
         print("Stopped.")
         break
+
+save_path = 'result.csv'
+save_df.to_csv(save_path, index=False)
 
 video.release()
 cv2.destroyAllWindows()

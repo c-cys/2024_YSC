@@ -27,10 +27,20 @@ for i in range(length):
     combined_image[y1:y2, x1:x2] = cropped_image
 
 for i in range(length-1):
+    result_df = pd.read_csv('classification/result.csv')
+    if i in result_df['linear'].values:
+        color = (255, 0, 0)
+    elif i in result_df['exp'].values:
+        color = (0, 0, 0)
+    elif i in result_df['log'].values:
+        color = (255, 255, 255)
+    else:
+        color = (0, 0, 255)
+
     image = cv2.imread(image_folder + f'frame_{i}.jpg')
     x1, y1, x2, y2 = map(int, bird_boxes[f'frame_{i}'])
     x3, y3, x4, y4 = map(int, bird_boxes[f'frame_{i+1}'])
-    cv2.line(combined_image, (x1, y1), (x3, y3), (0, 0, 255), 3)
+    cv2.line(combined_image, (x1, y1), (x3, y3), color, 3)
 
 cv2.imwrite('assets/saved_results/test_3/trajectory.jpg', combined_image)
 cv2.namedWindow('Trajectory', cv2.WINDOW_NORMAL)
